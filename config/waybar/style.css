@@ -1,0 +1,296 @@
+* {
+    font-family:
+        "JetBrainsMono Nerd Font", "Font Awesome 6 Free", "Material Icons";
+    font-size: 10.5pt; /* Reduced from 11pt for a more compact look */
+    color: #f1f1f1;
+    background-color: #1a1b26;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main bar styling */
+window#waybar {
+    background-color: #1a1b26;
+    border-radius: 6px; /* Reduced from 8px */
+    margin: 1.5px; /* Reduced from 3px */
+    padding: 0;
+    min-height: 0;
+}
+
+/* General container padding */
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0 5px;
+}
+
+/* Individual module padding and styling */
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#clock,
+#tray,
+#power,
+#bluetooth,
+#mpd,
+#custom-brightness,
+#disk {
+    padding: 2px 8px; /* Reduced vertical and horizontal padding */
+    margin: 1px 2px; /* Reduced margin */
+    border-radius: 5px; /* Reduced from 6px */
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+/* Module hover effects */
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#network:hover,
+#pulseaudio:hover,
+#clock:hover,
+#power:hover,
+#bluetooth:hover,
+#mpd:hover,
+#disk:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    /* transform: translateY(-1px); */
+}
+
+/* Specific module colors */
+#battery {
+    color: #9ece6a;
+    border-left: 3px solid #9ece6a;
+}
+
+#cpu {
+    color: #f7768e;
+    border-left: 3px solid #f7768e;
+}
+
+#memory {
+    color: #7dcfff;
+    border-left: 3px solid #7dcfff;
+}
+
+#network {
+    color: #e0af68;
+    border-left: 3px solid #e0af68;
+}
+
+#pulseaudio {
+    color: #6c77bb;
+    border-left: 3px solid #6c77bb;
+}
+
+#clock {
+    color: #bb9af7;
+    border-left: 3px solid #bb9af7;
+    font-weight: bold;
+}
+
+#power {
+    color: #f7768e;
+    border-left: 3px solid #f7768e;
+    /* cursor: pointer; */
+}
+
+#bluetooth {
+    color: #7dcfff;
+    border-left: 3px solid #7dcfff;
+}
+
+#mpd {
+    color: #9ece6a;
+    border-left: 3px solid #9ece6a;
+}
+
+#disk {
+    color: #e0af68;
+    border-left: 3px solid #e0af68;
+}
+
+/* Tray styling */
+#tray {
+    margin-right: 8px;
+    padding: 4px 8px; /* Keep a bit more padding for icons */
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #f7768e;
+}
+
+/* Workspaces styling */
+#workspaces {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 6px; /* Reduced from 8px */
+    margin: 1px 5px; /* Reduced margins */
+    padding: 1px; /* Reduced padding */
+}
+
+#workspaces button {
+    padding: 2.5px 6px; /* Reduced from 4px 8px */
+    margin: 1px;
+    border-radius: 4px; /* Reduced from 6px */
+    color: #565f89;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    min-width: 16px; /* Reduced from 20px */
+}
+
+#workspaces button.active {
+    color: #7aa2f7;
+    background-color: rgba(122, 162, 247, 0.2);
+    border: 2px solid #7aa2f7;
+    /* transform: scale(1.05); */
+}
+
+#workspaces button:hover {
+    color: #c0caf5;
+    background-color: rgba(192, 202, 245, 0.1);
+}
+
+/* Custom modules (separators, etc.) */
+.custom {
+    padding: 0 4px;
+    color: #565f89;
+}
+
+/* Tooltip styling */
+tooltip {
+    background-color: #24283b;
+    border: 1px solid #414868;
+    border-radius: 6px;
+    color: #c0caf5;
+    padding: 8px 12px;
+}
+
+tooltip label {
+    color: #c0caf5;
+}
+
+/* Battery specific states */
+#battery.charging {
+    color: #9ece6a;
+    animation: charging 2s infinite;
+}
+
+#battery.warning:not(.charging) {
+    color: #e0af68;
+    border-left-color: #e0af68;
+}
+
+#battery.critical:not(.charging) {
+    color: #f7768e;
+    border-left-color: #f7768e;
+    animation: blink 1s linear infinite;
+}
+
+/* Animations */
+@keyframes charging {
+    0% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Additional spacing and visual improvements */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #tray {
+    margin-right: 0;
+}
+
+#custom-launcher {
+    padding: 2.5px 8px; /* Reduced padding */
+    margin: 1px 2px; /* Reduced margin */
+    border-radius: 5px; /* Reduced from 8px */
+    background-color: rgba(122, 162, 247, 0.1);
+    color: #7aa2f7;
+    border-left: 3px solid #7aa2f7;
+    font-size: 13px; /* Reduced font size */
+    font-weight: bold;
+    /* transition: all 0.3s ease; */
+    min-width: 22px; /* Reduced from 30px */
+}
+
+#custom-launcher:hover {
+    background-color: rgba(122, 162, 247, 0.2);
+    /* transform: translateY(-2px); */
+    box-shadow: 0 4px 8px rgba(122, 162, 247, 0.3);
+}
+
+#custom-launcher:active {
+    /* transform: translateY(0px); */
+    background-color: rgba(122, 162, 247, 0.3);
+}
+
+#custom-power {
+    padding: 2.5px 8px; /* Reduced padding */
+    margin: 1px 2px; /* Reduced margin */
+    border-radius: 5px; /* Reduced from 8px */
+    background-color: rgba(247, 118, 142, 0.1);
+    color: #f7768e;
+    border-left: 3px solid #f7768e;
+    font-size: 13px; /* Reduced font size */
+    font-weight: bold;
+    /* transition: all 0.3s ease; */
+    min-width: 22px; /* Reduced from 30px */
+}
+
+#custom-power:hover {
+    background-color: rgba(247, 118, 142, 0.2);
+    /* transform: translateY(-2px); */
+    box-shadow: 0 4px 8px rgba(247, 118, 142, 0.3);
+}
+
+#custom-power:active {
+    /* transform: translateY(0px); */
+    background-color: rgba(247, 118, 142, 0.3);
+}
+
+/* Alternative: Pulsing animation for power button */
+@keyframes power-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(247, 118, 142, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(247, 118, 142, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(247, 118, 142, 0);
+    }
+}
+
+#custom-power:hover {
+    animation: power-pulse 1.5s infinite;
+}

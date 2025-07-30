@@ -1,0 +1,157 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 25,
+  "spacing": 3,
+
+  "modules-left": [
+    "custom/launcher", "custom/power", "custom/dots", "cpu", "memory", "disk",
+    "hyprland/window"
+  ],
+
+ "hyprland/window": {
+    "format": "{}",
+    "max-length": 50,
+    "separate-outputs": true,
+    "rewrite": {
+      "(.*) — Firefox Developer Edition": " Firefox",
+      "(.*) - Visual Studio Code": "󰨞 VSCode",
+      "(.*) - Zed": " Zed",
+      "(.*)@(.*):(.*)": "  Terminal",
+      "(.*) - Alacritty": "  Terminal",
+      "(.*) - NVIM": "  Neovim",
+      "(.*) - Thunar": "  Files",
+      "": "  Desktop"
+    }
+  },
+
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-right": [
+     "bluetooth",  "network", "pulseaudio","custom/brightness","battery",
+     "clock", "tray"
+  ],
+
+  "custom/launcher": {
+    "format": "󰣇",
+    "on-click": "wofi --show drun",
+    "tooltip": "Application launcher"
+  },
+
+  "cpu": {
+    "format": "{usage}% ",
+    "interval": 1
+  },
+
+  "memory": {
+    "format": "{used:0.1f}G / {total:0.1f}G ",
+    "interval": 2
+  },
+
+  "disk": {
+    "format": " 󱛟 {free}",
+    "interval": 60,
+    "exec": "df -h / | awk 'NR==2{print $4}'"
+  },
+
+   "custom/brightness": {
+    "exec": "~/.config/waybar/scripts/brightness.sh",
+    "return-type": "json",
+    "interval": 1,
+    "format": "☀ {}",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-",
+    "on-click": "brightnessctl set 50%"
+  },
+
+
+"hyprland/workspaces": {
+  "format": "{name}",
+  "on-click": "activate",
+  "on-scroll-up": "hyprctl dispatch workspace e+1",
+  "on-scroll-down": "hyprctl dispatch workspace e-1",
+  "persistent-workspaces": {
+    "*": [1, 2, 3, 4, 5]
+  },
+  "format-icons": {
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "active": "",
+    "default": ""
+  }
+},
+
+"battery": {
+    // Default: Discharging state, auto-selects icon based on percentage
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""], // Low to full
+    "format-charging": "{capacity}% 󰂄",   // Icon for charging (plug or bolt)
+    "format-plugged": "{capacity}% 󰂄",    // Plugged in, not charging (optionally another icon)
+    "format-full": "{capacity}% ",       // Full battery
+    "interval": 5
+},
+
+"network": {
+    // This targets your Wi-Fi card specifically
+    "interface": "wlan0",
+    "interval": 2,
+
+    // This format is ONLY used when you are connected to Wi-Fi.
+    "format-wifi": "󰤨  {essid}",
+
+    // This format is ONLY used for a wired connection.
+    "format-ethernet": "󰈀 Ethernet",
+
+    // This is the most important part.
+    // It is used when you are disconnected and has no arguments, so it can't fail.
+    "format-disconnected": "󰤭 Disconnected",
+
+    "format-icons": ["󰤯", "󰤟", "󰤥", "󰤨"],
+
+    "tooltip-format": "IP: {ipaddr} | GW: {gwaddr}",
+    "on-click": "nm-connection-editor" // Assumes you use NetworkManager
+},
+
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-icons": ["", "", ""]
+  },
+
+  "updates": {
+    "exec": "~/.config/waybar/scripts/updates.sh",
+    "interval": 300
+  },
+
+  "clock": {
+    "format": "   {:%I:%M %p}",
+    "format-alt": "{:%A, %d %B %Y %H:%M}",
+    "tooltip": false
+  },
+
+  "tray": {
+  },
+  "bluetooth": {
+  "format": " 󰂯 {status}",
+  "format-connected": " {device_alias}",
+  "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+  "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+  "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+  "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+  "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+  "on-click": "blueman-manager"
+},
+
+  "custom/power": {
+  "format": "",
+  "on-click": "source ~/.config/rofi/rofi-power-menu.sh",
+  "tooltip": "Power Menu"
+}
+
+
+}
